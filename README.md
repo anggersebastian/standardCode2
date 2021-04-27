@@ -49,3 +49,20 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+
+## Perbedaan
+
+~ Crud1 (with repository)
+Kelebihan : 
+1. lebih simple karena semua logic, validasi, & response berada di controller saja, dan untuk mengakses method query dari model berada di file repository.
+	
+Kekurangan : 
+1. Dengan banyaknya source code di 1 controller membuat para developer harus membaca dan tracing ke setiap line fungsi. Untuk memastikan yang mana response, validasi dan lain-lain
+
+~ Crud2 (with service & repository)
+Kelebihan :
+1. Mudah untuk mencari fungsi validasi, response, dan logic karena dipisahkan di file yang berbeda
+2. Source code lebih clean dan ringkas
+
+Kekurangan :
+1. Nambah file
