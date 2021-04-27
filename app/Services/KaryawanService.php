@@ -16,6 +16,10 @@ class KaryawanService
         $this->KaryawanRepository = $KaryawanRepository;
     }
 
+    public function getAll(){
+        return $this->KaryawanRepository->getAll();
+    }
+
     public function storeData($data, $id = null){
         $validator = Validator::make($data, [
             'name' => 'required|max:50',
@@ -31,8 +35,6 @@ class KaryawanService
         $result = $this->KaryawanRepository->save($data);
         return $result;
 
-        DB::beginTransaction();
-
         try {
             $karyawan = $this->KaryawanRepository->update($data, $id);
         }   catch (Exception $e) {
@@ -47,8 +49,6 @@ class KaryawanService
     }
 
     public function deleteId($id){
-        DB::beginTransaction();
-
         try {
             $karyawan = $this->KaryawanRepository->delete($id);
         }   catch (Exception $e) {

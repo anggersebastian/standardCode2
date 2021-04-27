@@ -16,7 +16,7 @@ class KaryawanController extends Controller
     }
 
     public function index(){
-        $getKaryawan = Karyawan::all();
+        $getKaryawan = $this->KaryawanService->getAll();
         return view('karyawan.index', compact('getKaryawan'));
     }
 
@@ -33,16 +33,7 @@ class KaryawanController extends Controller
             'team'
         ]);
         
-        $result = ['status' => 200];
-        
-        try {
-            $result['data'] = $this->KaryawanService->storeData($data);
-        }   catch (Exception $e) {
-                $result = [
-                    'status' => 500,
-                    'error' => $e->getMessage()
-                ];
-        }
+        $result['data'] = $this->KaryawanService->storeData($data);
 
         return redirect()->route('karyawan.index')->with(['success' => 'Data Has Been Added !']);
     }
@@ -55,31 +46,13 @@ class KaryawanController extends Controller
             'team'
         ]);
 
-        $result = ['status' => 200];
-
-        try {
-            $result['data'] = $this->KaryawanService->storeData($data, $id);
-        }   catch (Exception $e) {
-            $result = [
-                'status' => 500,
-                'error' => $e->getMessage()
-            ];
-        }
+        $result['data'] = $this->KaryawanService->storeData($data, $id); 
 
         return redirect()->route('karyawan.index')->with(['success' => 'Data Has Been Updated !']);
     }
 
     public function destroy($id){
-        $result = ['status' => 200];
-
-        try {
-            $result['data'] = $this->KaryawanService->deleteId($id);
-        }   catch (Exception $e) {
-            $result = [
-                'status' => 500,
-                'error' => $e->getMessage()
-            ];
-        }
+        $result['data'] = $this->KaryawanService->deleteId($id);
 
         return redirect()->route('karyawan.index')->with(['failed' => 'Data Has Been Deleted !']);
     }
