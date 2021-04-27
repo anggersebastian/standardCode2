@@ -44,7 +44,7 @@ class KaryawanController extends Controller
                 ];
         }
 
-        return response()->json($result, $result['status']);
+        return redirect()->route('karyawan.index')->with(['success' => 'Data Has Been Added !']);
     }
 
     public function update(Request $request, $id){
@@ -66,7 +66,7 @@ class KaryawanController extends Controller
             ];
         }
 
-        return response()->json($result, $result['status']);
+        return redirect()->route('karyawan.index')->with(['success' => 'Data Has Been Updated !']);
     }
 
     public function destroy($id){
@@ -81,6 +81,6 @@ class KaryawanController extends Controller
             ];
         }
 
-        return response()->json($result, $result['status']);
+        return redirect()->route('karyawan.index')->with(['failed' => 'Data Has Been Deleted !']);
     }
 }
