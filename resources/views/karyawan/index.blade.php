@@ -31,7 +31,7 @@
             <th colspan="2">Action</th>
             </tr>
         </thead>
-        {{-- <tbody>
+        <tbody>
             @foreach($getKaryawan as $getKaryawans)
             <tr>
             <td>{{ $loop->iteration }}</td>
@@ -49,7 +49,7 @@
             </td>
             </tr>
             @endforeach
-        </tbody> --}}
+        </tbody>
     </table>
 
     {{-- form create --}}

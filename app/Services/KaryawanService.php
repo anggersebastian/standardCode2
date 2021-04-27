@@ -3,34 +3,63 @@ namespace App\Services;
 
 use App\Http\Repositories\KaryawanRepository;
 use Exception;
-use illuminate\Support\Facades\DB;
-use illuminate\Support\Facades\Log;
-use illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 use invalidArgumentException;
 
 class KaryawanService
 {
-    protected $karyawanRepository;
+    protected $KaryawanRepository;
 
-    public function __construct(KaryawanRepository $karyawanRepository){
-        $this->karyawanRepository = $karyawanRepository;
+    public function __construct(KaryawanRepository $KaryawanRepository){
+        $this->KaryawanRepository = $KaryawanRepository;
     }
 
-    public function storeData($data){
+    public function storeData($data, $id = null){
         $validator = Validator::make($data, [
             'name' => 'required|max:50',
-            'phone' => 'required|numeric|min:8|max:11',
+            'phone' => 'required|numeric',
             'email' => 'required|email',
             'team' => 'required'
         ]);
 
         if ($validator->fails()){
-            throw new ValidationException($validator->errors()->first());
+            throw new invalidArgumentException($validator->errors()->first());
         }
 
-        $result = $this->karyawanRepository->save($data);
-
+        $result = $this->KaryawanRepository->save($data);
         return $result;
+
+        DB::beginTransaction();
+
+        try {
+            $karyawan = $this->KaryawanRepository->update($data, $id);
+        }   catch (Exception $e) {
+            DB::rollback();
+            Log::info($e->getMessage());
+
+            throw new InvalidArgumentException('Update Failed !');
+        }
+
+        DB::commit();
+        return $karyawan;
+    }
+
+    public function deleteId($id){
+        DB::beginTransaction();
+
+        try {
+            $karyawan = $this->KaryawanRepository->delete($id);
+        }   catch (Exception $e) {
+            DB::rollback();
+            Log::info($e->getMessage());
+
+            throw new InvalidArgumentException('Failed To Delete Data !');
+        }
+
+        DB::commit();
+        return $karyawan;
     }
 }
 ?>

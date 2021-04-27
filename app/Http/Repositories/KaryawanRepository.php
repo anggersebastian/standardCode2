@@ -8,19 +8,18 @@ class KaryawanRepository
 
     public function __construct(Karyawan $karyawan){
         $this->karyawan = $karyawan;
-        dd($this->karyawan);
     }
 
-    public function save($data){
-        $karyawan = new $this->karyawan;
+    public function save(array $data){
+        return Karyawan::create($data);
+    }
 
-        $karyawan->name = $data['name'];
-        $karyawan->email = $data['email'];
-        $karyawan->phone = $data['phone'];
-        $karyawan->team = $data['team'];
-        $karyawan->save();
+    public function update($id, array $data){
+        return Karyawan::find($id)->update($data);
+    }
 
-        return $karyawan->fresh();
+    public function delete($id){
+        return Karyawan::destroy($id);
     }
 }
 
