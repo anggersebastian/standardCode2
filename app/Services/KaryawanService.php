@@ -13,7 +13,6 @@ class KaryawanService
 {
     protected $KaryawanRepository;
     
-
     public function __construct(KaryawanRepository $KaryawanRepository){
         $this->KaryawanRepository = $KaryawanRepository;
     }
@@ -49,7 +48,7 @@ class KaryawanService
 
     public function updateData($data, $id = null){
         $validator = Validator::make($data, [
-            'name' => 'required|max:50',
+            'name' => 'required|max:50',    
             'phone' => 'required|numeric',
             'email' => 'required|email',
             'team' => 'required'
