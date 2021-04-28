@@ -6,21 +6,27 @@ use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Response;
 use invalidArgumentException;
 
 class KaryawanService
 {
     protected $KaryawanRepository;
+    
 
     public function __construct(KaryawanRepository $KaryawanRepository){
         $this->KaryawanRepository = $KaryawanRepository;
+    }
+
+    public function response(){
+        $response = array('status','message' => 'success','Updated Successfull');
     }
 
     public function getAll(){
         return $this->KaryawanRepository->getAll();
     }
 
-    public function storeData($data, $id = null){
+    public function storeData($data){
         $validator = Validator::make($data, [
             'name' => 'required|max:50',
             'phone' => 'required|numeric',
@@ -32,8 +38,26 @@ class KaryawanService
             throw new invalidArgumentException($validator->errors()->first());
         }
 
-        $result = $this->KaryawanRepository->save($data);
-        return $result;
+        try {
+            $result = $this->KaryawanRepository->save($data);
+        }   catch (Exception $e) {
+            throw new InvalidArgumentException('Failed To Create Data !');
+        }
+        
+        return $result;   
+    }
+
+    public function updateData($data, $id = null){
+        $validator = Validator::make($data, [
+            'name' => 'required|max:50',
+            'phone' => 'required|numeric',
+            'email' => 'required|email',
+            'team' => 'required'
+        ]);
+
+        if ($validator->fails()){
+            throw new invalidArgumentException($validator->errors()->first());
+        }
 
         try {
             $karyawan = $this->KaryawanRepository->update($data, $id);

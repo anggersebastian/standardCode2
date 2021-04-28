@@ -9,7 +9,9 @@
             </div>
             <div class="modal-body">
                 <div class="container">
-                    <form action="{{ route('karyawan.store') }}" method="POST">
+                    {{-- @foreach($dataCoba as $dataKaryawan) --}}
+                    <form action="{{ route('karyawan.storeData', $getKaryawans['id'])}}" method="POST">
+                        {{-- <form method="post" action="{{ action('KaryawanController@storeData') }}"> --}}
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label for="name">Name</label>

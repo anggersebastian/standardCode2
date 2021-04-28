@@ -18,7 +18,7 @@ class KaryawanRepository
         return Karyawan::create($data);
     }
 
-    public function update($id, array $data){
+    public function update($data, $id){
         return Karyawan::find($id)->update($data);
     }
 

@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
     <h3>Data Karyawan</h3><br>
-    <form method="POST" action="{{ action('KaryawanController@update', $id) }}">
+    <form method="post" action="{{ action('KaryawanController@storeData', $id) }}">
         {{ method_field('PATCH') }}
         {{ csrf_field() }}
         

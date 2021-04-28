@@ -15,4 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('karyawan', 'KaryawanController');
+Route::get('karyawan', 'KaryawanController@index')->name('karyawan.index');
+// Route::get('karyawan/create', 'KaryawanController@create')->name('karyawan.create');
+Route::get('karyawan/{karyawan}/edit', 'KaryawanController@edit')->name('karyawan.edit');
+Route::post('karyawan', 'KaryawanController@store')->name('karyawan.store');
+Route::post('karyawan/{karyawan}', 'KaryawanController@storeData')->name('karyawan.storeData');
+Route::patch('karyawan/{karyawan}', 'KaryawanController@update')->name('karyawan.update');
+Route::delete('karyawan/{karyawan}','KaryawanController@destroy')->name('karyawan.destroy');
