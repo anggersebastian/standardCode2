@@ -16,50 +16,25 @@ class KaryawanController extends Controller
     }
 
     public function index(){
-        $getKaryawan = $this->KaryawanService->getAll();
+        $getKaryawan = Karyawan::get();
         return view('karyawan.index', compact('getKaryawan'));
     }
 
     public function edit($id){
         $editKaryawan = Karyawan::find($id);
-        return view('karyawan.edit', compact('id','editKaryawan'));
-    }
-
-    public function store(request $request){
-        $data = $request->all();
-
-        $result['data'] = $this->KaryawanService->storeData($data);
-        return redirect()->route('karyawan.index')->with(['success' => 'Data Has Been Added !']);
+        return view('karyawan.edit', compact('id', 'editKaryawan'));
     }
 
     public function storeData(request $request, $id = null){
-        $response = $this->KaryawanService->Response();
-        $data = $request->all();
+        $result =  $this->KaryawanService->createData($request->all(), $id);
 
-        if($id)
-        {
-            $result['data'] = Karyawan::find($id);
-            $dataCoba = $result['data'];
-            if($result['data'])
-            {
-                $result['data'] = $this->KaryawanService->updateData($data, $id); 
-                
-            return redirect()->route('karyawan.index', compact('id'))
-                ->with($response['status'], $response['message']);
-            }
+        if (!$result) {
+            alertNotify($result['status'], $result['message'], $request);
+        } else {
+            alertNotify($result['status'], $result['message'], $request);
         }
-        else
-        {
-            $result['data'] = $this->KaryawanService->storeData($data);
-            return redirect()->route('karyawan.index', compact('id'))
-                ->with($response['status'], $response['message']);
-        }
-    }
 
-    public function update(Request $request, $id){
-        $data = $request->all();
-        $result['data'] = $this->KaryawanService->updateData($data, $id); 
-        return redirect()->route('karyawan.index')->with(['success' => 'Data Has Been Updated !']);
+        return redirect()->route('karyawan.index');
     }
 
     public function destroy($id){

@@ -2,17 +2,15 @@
 @section('content')
 <div class="container">
     <h3>Data Karyawan</h3><br>
-    <form method="post" action="{{ action('KaryawanController@storeData', $id) }}">
-        {{ method_field('PATCH') }}
+    <form action="{{ action('KaryawanController@storeData', $id) }}" method="POST">
         {{ csrf_field() }}
-        
         <div class="form-group">
             <label for="name">Name</label>
             <input type="text" class="form-control" name="name" value="{{ $editKaryawan->name }}">
         </div>
         <div class="form-group">
             <label for="exampleFormControlInput1">Email address</label>
-            <input type="email" class="form-control" name="email"  value="{{ $editKaryawan->email }}">
+            <input type="email" class="form-control" name="email" value="{{ $editKaryawan->email }}">
         </div>
         <div class="form-group">
             <label for="exampleFormControlInput1">Phone</label>

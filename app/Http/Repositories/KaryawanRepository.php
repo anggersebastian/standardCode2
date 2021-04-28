@@ -10,15 +10,11 @@ class KaryawanRepository
         $this->karyawan = $karyawan;
     }
 
-    public function getAll(){
-        return Karyawan::get();
-    }
-
     public function save(array $data){
         return Karyawan::create($data);
     }
 
-    public function update($data, $id){
+    public function find($data, $id){
         return Karyawan::find($id)->update($data);
     }
 
