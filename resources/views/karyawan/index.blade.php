@@ -3,23 +3,11 @@
 <div class="container">
     <h3>Data Karyawan</h3>
     <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#createForm">+ Create Karyawan</button><br><br>
+    
+    @if(Session::has('status'))
+        <p class="alert alert-{{ Session::get('alert-class', 'info') }}">{{ Session::get('status') }}</p>
+    @endif
 
-    {{-- alert message --}}
-    @if ($message = Session::get('success'))
-      <div class="alert alert-success" role="alert">
-        <button type="button" class="close" data-dismiss="alert">×</button>	
-        {{ $message }}
-      </div>
-	  @endif
-
-    @if ($message = Session::get('failed'))
-      <div class="alert alert-danger" role="alert">
-        <button type="button" class="close" data-dismiss="alert">×</button>	
-        {{ $message }}
-      </div>
-	  @endif
-
-    {{-- table index --}}
     <table class="table table-hover" style="text-align: center">
         <thead>
             <tr>

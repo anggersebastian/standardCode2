@@ -10,6 +10,7 @@
             <div class="modal-body">
                 <div class="container">
                     <form action="{{ isset($getKaryawans) ? route('karyawan.storeData', $getKaryawans['id']) : route('karyawan.store')}}" method="POST">
+                        {{-- <form action="{{ route('karyawan.storeData', $getKaryawans['id']) }}"></form> --}}
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label for="name">Name</label>
