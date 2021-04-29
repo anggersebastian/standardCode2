@@ -2,8 +2,8 @@
 @section('content')
 <div class="container">
     <h3>Data Karyawan</h3>
-    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#createForm">+ Create Karyawan</button><br><br>
-    
+    <a href="{{ route('karyawan.form') }}" class="btn btn-outline-primary">+ Create Karyawan</a><br><br>
+
     @if(Session::has('status'))
         <p class="alert alert-{{ Session::get('alert-class', 'info') }}">{{ Session::get('status') }}</p>
     @endif
@@ -27,7 +27,7 @@
             <td>{{ $getKaryawans['email'] }}</td>
             <td>{{ $getKaryawans['phone'] }}</td>
             <td>{{ $getKaryawans['team'] }}</td>
-            <td><a href="{{ action('KaryawanController@edit', $getKaryawans['id']) }}" class="btn btn-warning btn-sm">✏️ Edit</a></td>
+            <td><a href="{{ url('karyawan/edit', $getKaryawans['id']) }}" class="btn btn-warning btn-sm">✏️ Edit</a></td>
             <td>
                 <form action="{{ action('KaryawanController@destroy', $getKaryawans['id']) }}" method="post">
                 {{ csrf_field() }}
@@ -41,6 +41,6 @@
     </table>
 
     {{-- form create --}}
-    @extends('Karyawan.create') 
+    {{-- @extends('Karyawan.create')  --}}
 </div>
 @endsection

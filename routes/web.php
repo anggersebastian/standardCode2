@@ -16,6 +16,15 @@ Route::get('/', function () {
 });
 
 Route::get('karyawan', 'KaryawanController@index')->name('karyawan.index');
-Route::get('karyawan/{karyawan}/edit', 'KaryawanController@edit')->name('karyawan.edit');
-Route::post('karyawan/{karyawan}', 'KaryawanController@storeData')->name('karyawan.storeData');
-Route::delete('karyawan/{karyawan}','KaryawanController@destroy')->name('karyawan.destroy');
+Route::get('karyawan/create', 'KaryawanController@formKaryawan')->name('karyawan.form');
+Route::get('karyawan/edit/{id?}', 'KaryawanController@formKaryawan')->name('karyawan.edit');
+Route::post('karyawan/create/{id?}', 'KaryawanController@storeData')->name('karyawan.storeData');
+Route::delete('karyawan/{id?}','KaryawanController@destroy')->name('karyawan.destroy');
+
+// Route::group(['prefix' => 'karyawan', 'as' => 'karyawan', 'namespace' => 'karyawan'], function () {
+//     Route::get('/', 'KaryawanController@index')->name('karyawan.index');
+//     Route::get('/create', 'KaryawanController@formKaryawan')->name('karyawan.form');
+//     Route::post('/create/{id?}', 'KaryawanController@storeData')->name('karyawan.storeData');
+//     Route::delete('/{id?}','KaryawanController@destroy')->name('karyawan.destroy');
+//     Route::get('/edit/{id?}', 'KaryawanController@formKaryawan')->name('karyawan.edit');
+// });

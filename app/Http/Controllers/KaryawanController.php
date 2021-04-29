@@ -20,9 +20,22 @@ class KaryawanController extends Controller
         return view('karyawan.index', compact('getKaryawan'));
     }
 
-    public function edit($id){
-        $editKaryawan = Karyawan::find($id);
-        return view('karyawan.edit', compact('id', 'editKaryawan'));
+    // public function edit($id){
+    //     $editKaryawan = Karyawan::find($id);
+    //     return view('karyawan.edit', compact('id', 'editKaryawan'));
+    // }
+
+    public function formKaryawan(Request $request, $id = null){
+        if ($id) {
+            $getKaryawans = Karyawan::find($id);
+            if (!$getKaryawans['status']) {
+                alertNotify($getKaryawans['status'], $getKaryawans['message'], $request);
+                return redirect(url('karyawan/edit/{id?}'));
+            }
+            $getKaryawans = $getKaryawans['message'];
+        }
+
+        return view('karyawan.form', compact('getKaryawans'));
     }
 
     public function storeData(request $request, $id = null){
