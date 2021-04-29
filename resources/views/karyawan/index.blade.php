@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
     <h3>Data Karyawan</h3>
-    <a href="{{ route('karyawan.form') }}" class="btn btn-outline-primary">+ Create Karyawan</a><br><br>
+    <a href="{{ url('karyawan/create') }}" class="btn btn-outline-primary">+ Create Karyawan</a><br><br>
 
     @if(Session::has('status'))
         <p class="alert alert-{{ Session::get('alert-class', 'info') }}">{{ Session::get('status') }}</p>
@@ -39,8 +39,5 @@
             @endforeach
         </tbody>
     </table>
-
-    {{-- form create --}}
-    {{-- @extends('Karyawan.create')  --}}
 </div>
 @endsection

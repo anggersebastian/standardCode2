@@ -9,33 +9,30 @@ use App\Http\Repositories\KaryawanRepository;
 
 class KaryawanController extends Controller
 {
-    protected $KaryawanService;
+    protected $KaryawanService, $KaryawanRepository;
 
-    public function __construct(KaryawanService $KaryawanService){
+    public function __construct(KaryawanService $KaryawanService, KaryawanRepository $KaryawanRepository){
         $this->KaryawanService = $KaryawanService;
+        $this->KaryawanRepository = $KaryawanRepository;
     }
 
     public function index(){
         $getKaryawan = Karyawan::get();
         return view('karyawan.index', compact('getKaryawan'));
     }
-
-    // public function edit($id){
-    //     $editKaryawan = Karyawan::find($id);
-    //     return view('karyawan.edit', compact('id', 'editKaryawan'));
-    // }
-
+    
     public function formKaryawan(Request $request, $id = null){
         if ($id) {
-            $getKaryawans = Karyawan::find($id);
-            if (!$getKaryawans['status']) {
-                alertNotify($getKaryawans['status'], $getKaryawans['message'], $request);
-                return redirect(url('karyawan/edit/{id?}'));
+            $getKaryawan = Karyawan::find($id);
+            
+            if (!$getKaryawan) {
+                alertNotify($getKaryawan['status'], $getKaryawan['message'], $request);
+                return redirect(url('karyawan'));
             }
-            $getKaryawans = $getKaryawans['message'];
+            $getKaryawan = $getKaryawan['message'];
         }
 
-        return view('karyawan.form', compact('getKaryawans'));
+        return view('karyawan.form', compact('getKaryawan'));
     }
 
     public function storeData(request $request, $id = null){
@@ -47,11 +44,11 @@ class KaryawanController extends Controller
             alertNotify($result['status'], $result['message'], $request);
         }
 
-        return redirect()->route('karyawan.index');
+        return redirect('karyawan');
     }
 
     public function destroy($id){
-        $result['data'] = $this->KaryawanService->deleteId($id);
-        return redirect()->route('karyawan.index')->with(['failed' => 'Data Has Been Deleted !']);
+        $this->KaryawanService->deleteId($id);
+        return redirect()->back();
     }
 }

@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
     <h3>Data Karyawan</h3><br>
-    <form action="{{ isset($getKaryawan) ? route('karyawan.storeData', $getKaryawan->id) : route('karyawan.storeData') }}" method="POST">
+    <form action="{{ isset($getKaryawan) ? url('karyawan/edit', $getKaryawan->id) : url('karyawan/create') }}" method="POST">
         {{ csrf_field() }}
         <div class="form-group">
             <label for="name">Name</label>
