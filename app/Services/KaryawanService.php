@@ -1,10 +1,13 @@
 <?php
 namespace App\Services;
 
-use App\Http\Repositories\KaryawanRepository;
-use Exception;
-use Illuminate\Support\Facades\Log;
-use invalidArgumentException;
+ use App\Http\Repositories\KaryawanRepository; 
+ use Exception; 
+ use Illuminate\Support\Facades\DB; 
+ use Illuminate\Support\Facades\Log; 
+ use Illuminate\Support\Facades\Validator; 
+ use Illuminate\Support\Facades\Response; 
+ use invalidArgumentException;
 
 class KaryawanService
 {
@@ -18,6 +21,12 @@ class KaryawanService
         try {
             if($id) {
                 $karyawanData = $this->KaryawanRepository->find($data, $id);
+                $validator = Validator::make($data, [
+                    'name' => 'required|max:50',
+                    'phone' => 'required|numeric',
+                    'email' => 'required|email',
+                    'team' => 'required'
+                ]);
 
                 $karyawanData = ['status' => 'success', 'message' => 'Updated Successfully!'];
                 if (!$karyawanData) {
