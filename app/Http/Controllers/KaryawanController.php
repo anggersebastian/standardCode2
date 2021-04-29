@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Services\KaryawanService;
 use App\Karyawan;
+use App\Services\KaryawanService;
 use App\Http\Repositories\KaryawanRepository;
 
 class KaryawanController extends Controller
@@ -17,13 +17,13 @@ class KaryawanController extends Controller
     }
 
     public function index(){
-        $getKaryawan = Karyawan::get();
+        $getKaryawan = $this->KaryawanRepository->get();
         return view('karyawan.index', compact('getKaryawan'));
     }
     
     public function formKaryawan(Request $request, $id = null){
         if ($id) {
-            $getKaryawan = Karyawan::find($id);
+            $getKaryawan = $this->KaryawanRepository->find($id);
             
             if (!$getKaryawan) {
                 alertNotify($getKaryawan['status'], $getKaryawan['message'], $request);

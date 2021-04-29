@@ -10,6 +10,9 @@ class KaryawanRepository
         $this->karyawan = $karyawan;
     }
 
+    public function get(){
+        return Karyawan::get();
+    }
     public function save(array $data){
         return Karyawan::create($data);
     }

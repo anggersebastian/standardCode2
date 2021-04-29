@@ -10,5 +10,5 @@ Route::group(['prefix' => 'karyawan', 'as' => 'karyawan'], function () {
     Route::post('/create/{id?}', 'KaryawanController@storeData')->name('karyawan.storeData');
     Route::get('/edit/{id?}', 'KaryawanController@formKaryawan')->name('karyawan.edit');
     Route::delete('/{id?}','KaryawanController@destroy')->name('karyawan.destroy');
-    
 });
+

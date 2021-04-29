@@ -3,10 +3,7 @@ namespace App\Services;
 
 use App\Http\Repositories\KaryawanRepository;
 use Exception;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Response;
 use invalidArgumentException;
 
 class KaryawanService
