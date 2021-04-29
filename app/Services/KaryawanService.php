@@ -1,7 +1,7 @@
 <?php
 namespace App\Services;
 
- use App\Http\Repositories\KaryawanRepository; 
+ use App\Http\Repositories\karyawanRepository; 
  use Exception; 
  use Illuminate\Support\Facades\DB; 
  use Illuminate\Support\Facades\Log; 
@@ -11,50 +11,51 @@ namespace App\Services;
 
 class KaryawanService
 {
-    protected $KaryawanRepository;
+    protected $karyawanRepository;
     
-    public function __construct(KaryawanRepository $KaryawanRepository){
-        $this->KaryawanRepository = $KaryawanRepository;
+    public function __construct(KaryawanRepository $karyawanRepository){
+        $this->karyawanRepository = $karyawanRepository;
     }
 
-    public function createData($data, $id = null){
+    public function createData($request, $id = null){
         try {
-            if($id) {
-                $karyawanData = $this->KaryawanRepository->find($data, $id);
-                $validator = Validator::make($data, [
-                    'name' => 'required|max:50',
-                    'phone' => 'required|numeric',
-                    'email' => 'required|email',
-                    'team' => 'required'
-                ]);
-
-                $karyawanData = ['status' => 'success', 'message' => 'Updated Successfully!'];
-                if (!$karyawanData) {
-                    return returnCustom('Update Not Found!');
-                }
-            }
-            if (!$id) {
-                $karyawanData = $this->KaryawanRepository->save($data);
-                $karyawanData = ['status' => 'success', 'message' => 'Data Added Successfully!'];
+            $findKaryawan = $this->karyawanRepository->find($id);
+            $validator = Validator::make($data, [
+                'name' => 'required|max:50',
+                'phone' => 'required|numeric',
+                'email' => 'required|email',
+                'team' => 'required'
+            ]);
+            
+            if ($validator->fails()){
+                throw new invalidArgumentException($validator->errors()->first());
             }
 
-            return $karyawanData;
+            if(!$id) {
+                $findKaryawan = new Karyawan();
+                $findKaryawan->name = $request['name'];
+                $findKaryawan->email = $request['email'];
+                $findKaryawan->phone = $request['phone'];
+                $findKaryawan->team = $request['team'];
+                $findKaryawan->save();
 
+                return returnCustom(message: true, status:'Data Successfully Saved!');
+            }
             } catch (Exception $e) {
-                return $e->getMessage();
-                return returnCustom('Err code CMP - MPS: ' . $e->getMessage());
+                Log::error('This error messsage is from method createData, Log: ' . $e->getMessage())
+                return returnCustom(message: 'Sorry can not store right now !');
             }
     }
 
     public function deleteId($id){
         try {
-            $karyawan = $this->KaryawanRepository->delete($id);
-        }   catch (Exception $e) {
+            $karyawan = $this->karyawanRepository->delete($id);
+            } catch (Exception $e) {
             Log::info($e->getMessage());
-
             throw new InvalidArgumentException('Failed To Delete Data !');
-        }
-        return $karyawan;
+            }
+            
+            return $karyawan;
     }
 }
 ?>

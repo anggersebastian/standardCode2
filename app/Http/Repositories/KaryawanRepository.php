@@ -11,7 +11,7 @@ class KaryawanRepository
     }
 
     public function get(){
-        return Karyawan::get();
+        return Karyawan::with([''])->get();
     }
     public function save(array $data){
         return Karyawan::create($data);

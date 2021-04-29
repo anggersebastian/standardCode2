@@ -2,19 +2,19 @@
 @section('content')
 <div class="container">
     <h3>Data Karyawan</h3><br>
-    <form action="{{ isset($getKaryawan) ? url('karyawan/edit', $getKaryawan->id) : url('karyawan/create') }}" method="POST">
+    <form action="{{ isset($storeKaryawan) ? url('karyawan/edit', $storeKaryawan->id) : url('karyawan/create') }}" method="POST">
         {{ csrf_field() }}
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" class="form-control" name="name" value="{{ isset($getKaryawan) ? ($getKaryawan->name ? $getKaryawan->name : '') : '' }}">
+            <input type="text" class="form-control" name="name" value="{{ isset($storeKaryawan) ? ($storeKaryawan->name ? $storeKaryawan->name : '') : '' }}">
         </div>
         <div class="form-group">
             <label for="exampleFormControlInput1">Email address</label>
-            <input type="email" class="form-control" name="email" value="{{ isset($getKaryawan) ? ($getKaryawan->email ? $getKaryawan->email : '') : '' }}">
+            <input type="email" class="form-control" name="email" value="{{ isset($storeKaryawan) ? ($storeKaryawan->email ? $storeKaryawan->email : '') : '' }}">
         </div>
         <div class="form-group">
             <label for="exampleFormControlInput1">Phone</label>
-            <input type="number" class="form-control" name="phone" value="{{ isset($getKaryawan) ? ($getKaryawan->phone ? $getKaryawan->phone : '') : '' }}">
+            <input type="number" class="form-control" name="phone" value="{{ isset($storeKaryawan) ? ($storeKaryawan->phone ? $storeKaryawan->phone : '') : '' }}">
         </div>
         <div class="form-group">
             <label>Select Team</label>
