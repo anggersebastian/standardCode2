@@ -24,7 +24,7 @@ class KaryawanController extends Controller
     public function formKaryawan(Request $request, $id = null){
         if ($id) {
             $getKaryawan = $this->KaryawanRepository->find($id);
-            
+             
             if (!$getKaryawan->id) {
                 alertNotify($getKaryawan['status'], $getKaryawan['message'], $request);
                 return redirect(url('karyawan'));
