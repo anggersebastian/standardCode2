@@ -25,7 +25,7 @@ class KaryawanController extends Controller
         if ($id) {
             $getKaryawan = $this->KaryawanRepository->find($id);
             
-            if (!$getKaryawan) {
+            if (!$getKaryawan->id) {
                 alertNotify($getKaryawan['status'], $getKaryawan['message'], $request);
                 return redirect(url('karyawan'));
             }

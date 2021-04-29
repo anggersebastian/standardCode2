@@ -18,12 +18,15 @@ class KaryawanService
         try {
             if($id) {
                 $karyawanData = $this->KaryawanRepository->find($data, $id);
+
+                $karyawanData = ['status' => 'success', 'message' => 'Updated Successfully!'];
                 if (!$karyawanData) {
                     return returnCustom('Update Not Found!');
                 }
             }
             if (!$id) {
                 $karyawanData = $this->KaryawanRepository->save($data);
+                $karyawanData = ['status' => 'success', 'message' => 'Data Added Successfully!'];
             }
 
             return $karyawanData;
