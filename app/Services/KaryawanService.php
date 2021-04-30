@@ -35,17 +35,18 @@ class KaryawanService
 
             if(!$id) {
                 $findKaryawan = new Karyawan();
+                dd($findKaryawan);
                 $findKaryawan->name = $request['name'];
                 $findKaryawan->email = $request['email'];
                 $findKaryawan->phone = $request['phone'];
                 $findKaryawan->team = $request['team'];
                 $findKaryawan->save();
 
-                return returnCustom('Success to save', true);
+                // return returnCustom('Success to save', true);
             }
             } catch (Exception $e) {
                 Log::error('This error messsage is from method createData, Log: ' . $e->getMessage());
-                return returnCustom('Sorry can not store right now !');
+                // return returnCustom('Sorry can not store right now !');
             }
     }
 
