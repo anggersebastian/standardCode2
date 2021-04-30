@@ -4,11 +4,8 @@ namespace App\Services;
  use App\Http\Repositories\karyawanRepository; 
  use Exception;
  use App\Karyawan;
- use Illuminate\Support\Facades\DB; 
  use Illuminate\Support\Facades\Log; 
  use Illuminate\Support\Facades\Validator; 
- use Illuminate\Support\Facades\Response; 
- use invalidArgumentException;
 
 class KaryawanService
 {
@@ -45,7 +42,7 @@ class KaryawanService
             return returnCustom('Success to save', true);
             } catch (Exception $e) {
                 Log::error('This error messsage is from method createData, Log: ' . $e->getMessage());
-                // return returnCustom('Sorry can not store right now !');
+                return returnCustom('Sorry can not store right now !');
             }
     }
 
