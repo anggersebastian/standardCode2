@@ -56,9 +56,8 @@ class KaryawanService
                 return returnCustom('user not found!');
             }
             $karyawan->delete();
-            return returnCustom('success deleted data!')
+            return returnCustom('success deleted data!');
             
-            $deleteKaryawan = $this->karyawanRepository->delete($id);
             } catch (Exception $e) {
             Log::info('error while delete data karyawan, message: '. $e->getMessage());
             return returnCustom('Failed To Delete Data !');
