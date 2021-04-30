@@ -84,7 +84,7 @@
 
                 <label>CRUD With Service & Repository Pattern</label><br><br>
                 <div class="links">
-                    <a href="{{ route('karyawan.index') }}">Data Karyawan</a>
+                    <a href="{{ url('/karyawan') }}">Data Karyawan</a>
                 </div>
             </div>
         </div>

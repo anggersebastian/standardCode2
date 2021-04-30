@@ -11,14 +11,18 @@ class KaryawanRepository
     }
 
     public function get(){
-        return Karyawan::with([''])->get();
+        return Karyawan::with([])->get();
     }
     public function save(array $data){
         return Karyawan::create($data);
     }
 
-    public function find($data, $id){
-        return Karyawan::find($id)->update($data);
+    public function find($id){
+        return Karyawan::find($id);
+    }
+
+    public function update($data){
+        return Karyawan::update($data);
     }
 
     public function delete($id){

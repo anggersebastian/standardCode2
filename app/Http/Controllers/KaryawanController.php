@@ -23,7 +23,9 @@ class KaryawanController extends Controller
     
     public function formKaryawan(Request $request, $id = null){
         $storeKaryawan = $this->karyawanService->createData($request, $id);
-        alertNotify($storeKaryawan['status'], $storeKaryawan['message']);
+        if(isset($storeKaryawan['status']) && isset($storeKaryawan['message'])){
+            alertNotify($storeKaryawan['status'], $storeKaryawan['message']);
+        }
 
         return view('karyawan.form', compact('storeKaryawan'));
     }

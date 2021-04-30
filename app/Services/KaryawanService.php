@@ -20,6 +20,7 @@ class KaryawanService
     public function createData($request, $id = null){
         try {
             $findKaryawan = $this->karyawanRepository->find($id);
+            
             $validator = Validator::make($data, [
                 'name' => 'required|max:50',
                 'phone' => 'required|numeric',
@@ -30,6 +31,7 @@ class KaryawanService
             if ($validator->fails()){
                 throw new invalidArgumentException($validator->errors()->first());
             }
+            $findKaryawan = $this->karyawanRepository->update($data);
 
             if(!$id) {
                 $findKaryawan = new Karyawan();
@@ -39,23 +41,23 @@ class KaryawanService
                 $findKaryawan->team = $request['team'];
                 $findKaryawan->save();
 
-                return returnCustom(message: true, status:'Data Successfully Saved!');
+                return returnCustom('Success to save', true);
             }
             } catch (Exception $e) {
-                Log::error('This error messsage is from method createData, Log: ' . $e->getMessage())
-                return returnCustom(message: 'Sorry can not store right now !');
+                Log::error('This error messsage is from method createData, Log: ' . $e->getMessage());
+                return returnCustom('Sorry can not store right now !');
             }
     }
 
     public function deleteId($id){
         try {
-            $karyawan = $this->karyawanRepository->delete($id);
+            $deleteKaryawan = $this->karyawanRepository->delete($id);
             } catch (Exception $e) {
             Log::info($e->getMessage());
             throw new InvalidArgumentException('Failed To Delete Data !');
             }
             
-            return $karyawan;
+            return $deleteKaryawan;
     }
 }
 ?>
