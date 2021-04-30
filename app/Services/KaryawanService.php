@@ -2,7 +2,8 @@
 namespace App\Services;
 
  use App\Http\Repositories\karyawanRepository; 
- use Exception; 
+ use Exception;
+ use App\Karyawan;
  use Illuminate\Support\Facades\DB; 
  use Illuminate\Support\Facades\Log; 
  use Illuminate\Support\Facades\Validator; 
@@ -18,9 +19,7 @@ class KaryawanService
     }
 
     public function createData($request, $id = null){
-        try {
-            $findKaryawan = $this->karyawanRepository->find($id);
-            
+        try { 
             $validator = Validator::make($data, [
                 'name' => 'required|max:50',
                 'phone' => 'required|numeric',
@@ -29,21 +28,21 @@ class KaryawanService
             ]);
             
             if ($validator->fails()){
-                throw new invalidArgumentException($validator->errors()->first());
+                return returnCustom($validator->errors()->first());
             }
-            $findKaryawan = $this->karyawanRepository->update($data);
+
+            $findKaryawan = $this->karyawanRepository->find($id);
 
             if(!$id) {
                 $findKaryawan = new Karyawan();
-                dd($findKaryawan);
-                $findKaryawan->name = $request['name'];
-                $findKaryawan->email = $request['email'];
-                $findKaryawan->phone = $request['phone'];
-                $findKaryawan->team = $request['team'];
-                $findKaryawan->save();
-
-                // return returnCustom('Success to save', true);
             }
+            $findKaryawan->name = $request['name'];
+            $findKaryawan->email = $request['email'];
+            $findKaryawan->phone = $request['phone'];
+            $findKaryawan->team = $request['team'];
+            $findKaryawan->save();
+
+            return returnCustom('Success to save', true);
             } catch (Exception $e) {
                 Log::error('This error messsage is from method createData, Log: ' . $e->getMessage());
                 // return returnCustom('Sorry can not store right now !');
@@ -52,13 +51,17 @@ class KaryawanService
 
     public function deleteId($id){
         try {
-            $deleteKaryawan = $this->karyawanRepository->delete($id);
-            } catch (Exception $e) {
-            Log::info($e->getMessage());
-            throw new InvalidArgumentException('Failed To Delete Data !');
+            $karyawan = $this->KaryawanRepository->find($id);
+            if(!$karyawan){
+                return returnCustom('user not found!');
             }
+            $karyawan->delete();
+            return returnCustom('success deleted data!');
             
-            return $deleteKaryawan;
+            } catch (Exception $e) {
+            Log::info('error while delete data karyawan, message: '. $e->getMessage());
+            return returnCustom('Failed To Delete Data !');
+            }
     }
 }
 ?>
