@@ -50,6 +50,7 @@ Kekurangan :
 
 
 ~ Crud2 (with service & repository)
+
 Kelebihan :
 1. Mudah untuk mencari fungsi validasi, response, dan logic karena dipisahkan di file yang berbeda.
 2. Source code lebih clean dan ringkas.
@@ -60,12 +61,12 @@ Kelebihan :
 
 contoh source code : 
 
-Route::group(['prefix' => 'karyawan', 'as' => 'karyawan'], function () {
-    Route::get('/create', 'KaryawanController@formKaryawan')->name('karyawan.form');
-    Route::get('/edit/{id?}', 'KaryawanController@formKaryawan')->name('karyawan.edit');
-    Route::any('/store/{id?}', 'KaryawanController@storeData')->name('karyawan.storeData');
-    Route::post('/update/{id?}', 'KaryawanController@storeData')->name('karyawan.update');
-});
+    Route::group(['prefix' => 'karyawan', 'as' => 'karyawan'], function () {
+        Route::get('/create', 'KaryawanController@formKaryawan')->name('karyawan.form');
+        Route::get('/edit/{id?}', 'KaryawanController@formKaryawan')->name('karyawan.edit');
+        Route::any('/store/{id?}', 'KaryawanController@storeData')->name('karyawan.storeData');
+        Route::post('/update/{id?}', 'KaryawanController@storeData')->name('karyawan.update');
+    });
 
 ~ 2. Buat 1 form yang digunakan untuk meng-create sekaligus edit, yang mana di form action dan value nya di beri kondisi.
 
