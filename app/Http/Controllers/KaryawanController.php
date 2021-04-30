@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Karyawan;
 use App\Services\karyawanService;
 use App\Http\Repositories\karyawanRepository;
 
@@ -22,28 +21,26 @@ class KaryawanController extends Controller
     }
     
     public function formKaryawan(Request $request, $id = null){
-        $storeKaryawan = $this->karyawanService->createData($request, $id);
-        if(isset($storeKaryawan['status']) && isset($storeKaryawan['message'])){
-            alertNotify($storeKaryawan['status'], $storeKaryawan['message']);
-        }
-
+        $storeKaryawan = $this->karyawanRepository->find($id);
         return view('karyawan.form', compact('storeKaryawan'));
-    }
+    }                                   
 
     public function storeData(request $request, $id = null){
         $result =  $this->karyawanService->createData($request->all(), $id);
-        
-        if (!$result) {
-            alertNotify($result['status'], $result['message'], $request);
-        } else {
-            alertNotify($result['status'], $result['message'], $request);
+
+        if(isset($result['status']) && $result['message']){
+            alertNotify($result['status'], $result['message']);
         }
 
         return redirect('karyawan');
     }
 
-    public function destroy($id){
-        $this->karyawanService->deleteId($id);
+    public function destroy(Request $request,$id){
+        $result = $this->karyawanService->deleteId($id);
+        if(isset($result['status']) && $result['message']){
+            alertNotify($result['status'], $result['message'], $request);
+        }
+
         return redirect()->back();
     }
 }
