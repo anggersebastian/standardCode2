@@ -21,17 +21,13 @@ class KaryawanController extends Controller
     }
     
     public function formKaryawan(Request $request, $id = null){
-        $storeKaryawan = $this->karyawanService->createData($request, $id);
-        if(isset($storeKaryawan['status']) && isset($storeKaryawan['message'])){
-            alertNotify($storeKaryawan['status'], $storeKaryawan['message']);
-        }
-
         $storeKaryawan = $this->karyawanRepository->find($id);
         return view('karyawan.form', compact('storeKaryawan'));
     }                                   
 
     public function storeData(request $request, $id = null){
         $result =  $this->karyawanService->createData($request->all(), $id);
+
         if(isset($result['status']) && $result['message']){
             alertNotify($result['status'], $result['message']);
         }
