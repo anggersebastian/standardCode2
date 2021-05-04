@@ -124,7 +124,7 @@ contoh source code:
 
     public function createData($request, $id = null){
         try { 
-            $validator = Validator::make($data, [
+            $validator = Validator::make($request, [
                 'name' => 'required|max:50',
                 'phone' => 'required|numeric',
                 'email' => 'required|email',
