@@ -17,7 +17,7 @@ class KaryawanService
 
     public function createData($request, $id = null){
         try { 
-            $validator = Validator::make($data, [
+            $validator = Validator::make($request, [
                 'name' => 'required|max:50',
                 'phone' => 'required|numeric',
                 'email' => 'required|email',
@@ -56,8 +56,8 @@ class KaryawanService
             return returnCustom('success deleted data!');
             
             } catch (Exception $e) {
-            Log::info('error while delete data karyawan, message: '. $e->getMessage());
-            return returnCustom('Failed To Delete Data !');
+                Log::info('error while delete data karyawan, message: '. $e->getMessage());
+                return returnCustom('Failed To Delete Data !');
             }
     }
 }

@@ -27,7 +27,6 @@ class KaryawanController extends Controller
 
     public function storeData(request $request, $id = null){
         $result =  $this->karyawanService->createData($request->all(), $id);
-
         if(isset($result['status']) && $result['message']){
             alertNotify($result['status'], $result['message']);
         }
